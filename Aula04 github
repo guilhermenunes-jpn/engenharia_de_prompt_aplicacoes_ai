@@ -1,0 +1,92 @@
+# ============================================
+# Sistema simples de cadastro de login
+# ============================================
+
+# Dicionário para armazenar os usuários cadastrados
+# A estrutura será: {usuario: senha}
+usuarios = {}
+
+
+def cadastrar_usuario():
+    """
+    Função responsável por cadastrar um novo usuário.
+    Solicita um nome de usuário e uma senha,
+    valida os dados e armazena no dicionário.
+    """
+
+    # Solicita o nome de usuário ao usuário
+    username = input("Digite um nome de usuário: ")
+
+    # Verifica se o usuário já existe no sistema
+    if username in usuarios:
+        print("Erro: Este usuário já está cadastrado.")
+        return  # Encerra a função se o usuário já existir
+
+    # Solicita a senha
+    senha = input("Digite uma senha: ")
+
+    # Validação simples da senha
+    # Aqui verificamos se a senha tem pelo menos 4 caracteres
+    if len(senha) < 4:
+        print("Erro: A senha deve ter pelo menos 4 caracteres.")
+        return  # Encerra a função caso a senha seja inválida
+
+    # Se passou nas validações, salva o usuário no dicionário
+    usuarios[username] = senha
+
+    # Confirmação de cadastro
+    print("Usuário cadastrado com sucesso!")
+
+
+def realizar_login():
+    """
+    Função responsável por realizar o login do usuário.
+    Verifica se o usuário existe e se a senha está correta.
+    """
+
+    # Solicita o nome de usuário
+    username = input("Digite seu usuário: ")
+
+    # Solicita a senha
+    senha = input("Digite sua senha: ")
+
+    # Verifica se o usuário existe e se a senha confere
+    if username in usuarios and usuarios[username] == senha:
+        print("Login realizado com sucesso!")
+    else:
+        print("Erro: Usuário ou senha incorretos.")
+
+
+def menu():
+    """
+    Função que exibe um menu simples para o usuário escolher ações.
+    Permite cadastrar, fazer login ou sair do sistema.
+    """
+
+    while True:
+        print("\n=== MENU ===")
+        print("1 - Cadastrar usuário")
+        print("2 - Fazer login")
+        print("3 - Sair")
+
+        # Recebe a opção do usuário
+        opcao = input("Escolha uma opção: ")
+
+        # Estrutura condicional para executar a ação escolhida
+        if opcao == "1":
+            cadastrar_usuario()
+        elif opcao == "2":
+            realizar_login()
+        elif opcao == "3":
+            print("Encerrando o sistema...")
+            break  # Sai do loop e finaliza o programa
+        else:
+            print("Opção inválida. Tente novamente.")
+
+
+# ============================================
+# Execução do programa
+# ============================================
+
+# Chama a função menu para iniciar o sistema
+menu()
